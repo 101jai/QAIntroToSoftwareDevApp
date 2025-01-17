@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QAIntroToSoftwareDevApp.Classes
 {
-    internal class StaffMember : Person
+    public class StaffMember : Person
     {
         public int id;
         public string jobTitle;
@@ -37,7 +37,7 @@ namespace QAIntroToSoftwareDevApp.Classes
 
         public override string ToString()
         {
-            return $"Staff Member id: {id}, Name: {GetName()}, Age: {GetAge()}, Role: {role}";
+            return $"Staff Member id: {id}, Name: {GetName()}, Age: {GetAge()}, Job Title: {jobTitle}";
         }
     }
 }

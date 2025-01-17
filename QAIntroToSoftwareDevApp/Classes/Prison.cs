@@ -15,6 +15,7 @@ namespace QAIntroToSoftwareDevApp.Classes
         List<StaffMember> staffMembers;
 
         int currentCellNumber = 0;
+        int currentStaffId = 0;
 
         // Constructor
         public Prison(string name, string location)
@@ -39,6 +40,11 @@ namespace QAIntroToSoftwareDevApp.Classes
             return prisoners;
         }
 
+        public List<StaffMember> GetStaffMembers()
+        {
+            return staffMembers;
+        }
+
         public int GetCapacity()
         {
             int capacity = 0;
@@ -47,6 +53,11 @@ namespace QAIntroToSoftwareDevApp.Classes
                 capacity += cell.GetCapacity();
             }
             return capacity;
+        }
+
+        public List<Cell> GetCells()
+        {
+            return cells;
         }
 
         public void AddCell(int capacity)
@@ -84,6 +95,39 @@ namespace QAIntroToSoftwareDevApp.Classes
             {
                 throw new Exception("Prison is empty");
             }
+        }
+
+        // function for adding nurses to the prison
+        public void AddNurse(string name, int age, string jobTitle)
+        {
+            Console.WriteLine("What is the Nurse's qualification(s)?");
+            string qualification = Console.ReadLine();
+            double salary = 0;
+            bool hasSalary = false;
+            while (!hasSalary)
+            {
+                Console.WriteLine("What is the Nurse's Salary?");
+                hasSalary = Double.TryParse(Console.ReadLine(), out salary);
+            }
+
+            staffMembers.Add(new Nurse(currentStaffId, name, age, jobTitle, salary, qualification));
+            currentStaffId++;
+        }
+
+        //Function for adding guards to the prison
+        public void AddGuard(string name, int age, string jobTitle, bool isArmed)
+        {
+            Console.WriteLine("What is the Nurse's qualification(s)?");
+            double salary = 0;
+            bool hasSalary = false;
+            while (!hasSalary)
+            {
+                Console.WriteLine("What is the Guard's Salary?");
+                hasSalary = Double.TryParse(Console.ReadLine(), out salary);
+            }
+
+            staffMembers.Add(new Guard(currentStaffId, name, age, jobTitle, salary, isArmed));
+            currentStaffId++;
         }
     }
 }

@@ -1,30 +1,56 @@
 ﻿using QAIntroToSoftwareDevApp.Classes;
 
-Prison belmarsh = new Prison("HMP Belmarsh", "London");
+string prisonName = string.Empty;
+string prisonLocation = string.Empty;
 
-// Add cells to the prison using Add Cell method
-belmarsh.AddCell(10);
-belmarsh.AddCell(5);
-
-// Add prisoners to the prison using Add Prisoner method, incrementing the id each time. This adds the prisoners to the first cell that has capacity.
-int currentPrisonerId = 0;
-belmarsh.AddPrisoner(new Prisoner(currentPrisonerId, "John Doe", 30, "Software Piracy", DateTime.MaxValue, RiskLevel.HIGH));
-currentPrisonerId++;
-belmarsh.AddPrisoner(new Prisoner(currentPrisonerId, "Jeremy Doe", 30, "Software Piracy", DateTime.MaxValue, RiskLevel.HIGH));
-currentPrisonerId++;
-
-// Log the prison's capacity and information on the prisoners within the prison
-Console.WriteLine(belmarsh.GetCapacity());
-foreach(Prisoner prisoner in belmarsh.GetPrisoners())
+// Get user input on prison
+while (string.IsNullOrEmpty(prisonName))
 {
-    Console.WriteLine(prisoner.ToString());
+    Console.Write("New Prison Name: ");
+    prisonName = Console.ReadLine();
 }
 
-// Remove a prisoner from the prison using the Remove Prisoner method and log the remaining prisoners
-belmarsh.RemovePrisoner(0);
-Console.WriteLine("\n After removing Prisoner with id 0");
-
-foreach (Prisoner prisoner in belmarsh.GetPrisoners())
+while (string.IsNullOrEmpty(prisonLocation))
 {
-    Console.WriteLine(prisoner.ToString());
+    Console.Write($"Location of {prisonName}: ");
+    prisonLocation = Console.ReadLine();
 }
+
+// Insantiate a new Prison based on the submitted info to the prison variable
+Prison prison = new Prison(prisonName, prisonLocation);
+
+// Get number of prison cells from user
+int prisonCells = 0;
+Console.WriteLine("Please enter an integer for number of cells that is greater than 0");
+while (prisonCells < 1)
+{
+    try
+    {
+        prisonCells = int.Parse(Console.ReadLine());
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Please enter a valid integer for the number of cells");
+    }
+}
+
+// Get each cell's capacity from user then add the cell to the prison object
+for (int i = 0; i < prisonCells; i++)
+{
+    int cellCapacity = 0;
+    while (cellCapacity < 1)
+    {
+        try
+        {
+            Console.WriteLine("What is the capacity of cell #" + i);
+            cellCapacity = int.Parse(Console.ReadLine());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Please enter a valid integer for the capacity of cell #" + i);
+        }
+    }
+    prison.AddCell(cellCapacity);
+}
+
+Console.WriteLine($"{prisonName} has a capacity of: {prison.GetCapacity()}");

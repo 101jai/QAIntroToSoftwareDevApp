@@ -22,6 +22,7 @@ namespace QAIntroToSoftwareDevApp.Classes
 
         public override string ToString()
         {
-            return $"Guard id: {id}, Name: {GetName()}, Age: {GetAge()}, Role: {GetJobTitle()}";
+            return $"Guard id: {id}, Name: {GetName()}, Age: {GetAge()}, Job Title: {GetJobTitle()}";
         }
+    }
 }
